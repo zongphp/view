@@ -1,0 +1,24 @@
+{
+  "name": "zongphp/view",
+  "description": "模板管理",
+  "type": "project",
+  "keywords": [
+    "模板",
+    "视图"
+  ],
+  "license": "MIT",
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=5.4.0",
+    "zongphp/config": "~1.0",
+    "zongphp/cache": "~1.0"
+  },
+  "autoload": {
+    "files": [
+      "src/helper.php"
+    ],
+    "psr-4": {
+      "zongphp\\view\\": "src"
+    }
+  }
+}
