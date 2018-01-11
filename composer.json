@@ -1,8 +1,8 @@
 {
   "name": "zongphp/view",
-  "description": "模板管理",
-  "type": "project",
+  "description": "视图模板",
   "keywords": [
+    "zongphp",
     "模板",
     "视图"
   ],
@@ -10,8 +10,9 @@
   "minimum-stability": "stable",
   "require": {
     "php": ">=5.4.0",
-    "zongphp/config": "~1.0",
-    "zongphp/cache": "~1.0"
+    "zongphp/config": "~2.0",
+    "zongphp/cache": "~2.0",
+    "zongphp/arr": "~2.0"
   },
   "autoload": {
     "files": [
