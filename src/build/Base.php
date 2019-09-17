@@ -118,7 +118,7 @@ class Base {
 		if ( ! is_file( $file ) ) {
 			if ( defined( 'MODULE' ) ) {
 				//模块视图文件夹
-				$file = Config::get( 'controller.app' ) . '/' . strtolower( MODULE . '/view/' . CONTROLLER )
+				$file = Config::get( 'controller.app' ) . '/' . self::parseString( MODULE . '/view/' . CONTROLLER )
 				        . '/' . ( $file ?: ACTION . Config::get( 'view.prefix' ) );
 
 				if ( ! is_file( $file ) ) {
@@ -163,4 +163,21 @@ class Base {
 	public function delCache( $file = '' ) {
 		return Cache::driver( 'file' )->dir( Config::get( 'view.cache_dir' ) )->del( $this->cacheName( $file ) );
 	}
+	
+	/**
+     * 驼峰转下划线规则
+     * @param string $node 节点名称
+     * @return string
+     */
+    public static function parseString($node)
+    {
+        if (count($nodes = explode('/', $node)) > 1) {
+            $dots = [];
+            foreach (explode('.', $nodes[2]) as $dot) {
+                $dots[] = trim(preg_replace("/[A-Z]/", "_\\0", $dot), "_");
+            }
+            $nodes[2] = join('.', $dots);
+        }
+        return strtolower(join('/', $nodes));
+    }
 }
