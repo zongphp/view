@@ -118,8 +118,8 @@ class Base {
 		if ( ! is_file( $file ) ) {
 			if ( defined( 'MODULE' ) ) {
 				//模块视图文件夹
-				$file = Config::get( 'controller.app' ) . '/' . self::parseString( MODULE . '/view/' . CONTROLLER )
-				        . '/' . ( $file ?: ACTION . Config::get( 'view.prefix' ) );
+				$file = Config::get( 'controller.app' ) . '/' . strtolower( MODULE . '/view/' . self::parseString(CONTROLLER) )
+				        . '/' . ( $file ?: self::parseString(ACTION) . Config::get( 'view.prefix' ) );
 
 				if ( ! is_file( $file ) ) {
 					trigger_error( "模板不存在:$file", E_USER_ERROR );
@@ -169,15 +169,13 @@ class Base {
      * @param string $node 节点名称
      * @return string
      */
-    public static function parseString($node)
-    {
-        if (count($nodes = explode('/', $node)) > 1) {
-            $dots = [];
-            foreach (explode('.', $nodes[2]) as $dot) {
+    public static function parseString($node){
+		$dots = [];
+        foreach (explode('.', $node) as $dot) {
                 $dots[] = trim(preg_replace("/[A-Z]/", "_\\0", $dot), "_");
-            }
-            $nodes[2] = join('.', $dots);
         }
-        return strtolower(join('/', $nodes));
-    }
+		$node = join('.', $dots);
+		
+		return strtolower($node);
+	}
 }
